@@ -13,5 +13,10 @@ int numberB = Convert.ToInt32(Console.ReadLine());
 
 int result = numberA * numberA;
 if (result == numberB)
-Console.WriteLine("УРА");
-else Console.WriteLine("Попробуй еще");
+{
+    Console.WriteLine("УРА");
+}
+else
+{
+    Console.WriteLine("Попробуй еще");
+}
