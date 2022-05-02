@@ -5,14 +5,13 @@
 */
 
 Console.WriteLine("Введите число: ");
-
 int number = Convert.ToInt32(Console.ReadLine());
+for (int i = -number; i <= number; i++)
 
-int number1 = 0 - number;
-
-while(number1 <= number)
+{
+    Console.Write(i);
+    if (i != number)
     {
-        Console.Write(number1);
-        Console.Write(", ");
-        number1++;
-    } 
+        Console.Write(", ");       
+    }
+}
