@@ -6,17 +6,16 @@ a = 9; b = -3 -> нет
 a = -3 b = 9 -> 
 */
 
-Console.WriteLine("Введите число: ");
-
+Console.WriteLine("Введите первое число: ");
 int numberA = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Введите второе число: ");
 int numberB = Convert.ToInt32(Console.ReadLine());
 
-int result = numberA * numberA;
-if (result == numberB)
+if (numberA * numberA == numberB)
 {
-    Console.WriteLine("УРА");
+    Console.WriteLine("Второе число является квадратом первого ");
 }
 else
 {
-    Console.WriteLine("Попробуй еще");
+    Console.WriteLine("Второе число не является квадратом первого");
 }
