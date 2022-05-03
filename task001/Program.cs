@@ -6,9 +6,8 @@
 
 Console.WriteLine("Введите день недели: ");
 
-
 int number = Convert.ToInt32(Console.ReadLine());
-switch (number)
+switch (number) //((number - 1) % 7 + 1) - выдает с любого числа день недели
 {
     case 1:
         {
@@ -53,4 +52,3 @@ switch (number)
         }
 
 }
-
