@@ -37,13 +37,26 @@ void FrequencyWords(int[,] arrayTo)
     int result = 0;
     for (int k = 0; k < 10; k++)
     {
-        for (int i = 0; i < arrayTo.GetLength(0); i++)            
+        for (int i = 0; i < arrayTo.GetLength(0); i++)
         {
             for (int j = 0; j < arrayTo.GetLength(1); j++)
             {
-
+                if (arrayTo[i, j] == k)
+                {
+                    result++;
+                }
             }
         }
+        if (result != 0)
+        {
+            string count = "раз";
+            if (result > 1 && result < 5)
+            {
+                count = "раза";
+            }
+            System.Console.WriteLine($"{k} встречается {result} {count}.");
+        }
+        result = 0;
     }
 }
 
@@ -65,3 +78,9 @@ void Print2DArray(int[,] arrayToPrint)
         Console.WriteLine();
     }
 }
+
+int arrayRow = 3;
+int arrayColumn = 3;
+int[,] array = GetNewArray(arrayRow, arrayColumn);
+Print2DArray(array);
+FrequencyWords(array);

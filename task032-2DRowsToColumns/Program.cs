@@ -8,7 +8,7 @@ int[,] GetNewArray(int row, int column)
     int[,] result = new int[row, column];
     for (int i = 0; i < row; i++)
     {
-        for (int j = i; j < column; j++)
+        for (int j = 0; j < column; j++)
         {
             result[i, j] = new Random().Next(1, 20);
         }
