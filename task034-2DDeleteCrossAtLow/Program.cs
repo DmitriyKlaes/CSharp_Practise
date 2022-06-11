@@ -47,8 +47,6 @@ int[,] DeleteRowsAndColumns(int[,] arrayForDelete, int lowerElement)
     int[,] result = new int[arrayForDelete.GetLength(0) - 1, arrayForDelete.GetLength(1) - 1];
     int indexRow = 0;
     int indexColumn = 0;
-    int tempRow = 0;
-    int tempColumn = 0;
     for (int i = 0; i < arrayForDelete.GetLength(0); i++)
     {
         for (int j = 0; j < arrayForDelete.GetLength(1); j++)
@@ -61,26 +59,21 @@ int[,] DeleteRowsAndColumns(int[,] arrayForDelete, int lowerElement)
             }
         }
     }
-    for (int i = 0; i < result.GetLength(0); i++)
+    for (int i = 0, tempRow = 0; i < result.GetLength(0); i++, tempRow++)
     {
-        tempRow = i;
-        for (int j = 0; j < result.GetLength(1); j++)
+        for (int j = 0, tempColumn = 0; j < result.GetLength(1); j++, tempColumn++)
         {
-            tempColumn = j;
-            if (i == indexRow)
+            if (tempRow == indexRow)
             {
-                tempRow = tempRow + 1;
+                tempRow++;
 
             }
-            if (j == indexColumn)
+            if (tempColumn == indexColumn)
             {
-                tempColumn = tempColumn + 1;
+                tempColumn++;
 
             }
             result[i, j] = arrayForDelete[tempRow, tempColumn];
-            tempRow = i;
-            tempColumn = j;
-
         }
     }
     return result;
@@ -143,8 +136,8 @@ void Print2DArray(int[,] arrayToPrint)
     }
 }
 
-int arrayRow = 5;
-int arrayColumn = 5;
+int arrayRow = 7;
+int arrayColumn = 7;
 int[,] baseArray = GetNewArray(arrayRow, arrayColumn);
 int lowerElement = FindLowerElement(baseArray);
 Print2DArrayColor(baseArray, lowerElement);
