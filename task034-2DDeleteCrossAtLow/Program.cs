@@ -42,6 +42,7 @@ int FindLowerElement(int[,] arrayForFind)
     return result;
 }
 
+/*
 int[,] DeleteRowsAndColumns(int[,] arrayForDelete, int lowerElement)
 {
     int[,] result = new int[arrayForDelete.GetLength(0) - 1, arrayForDelete.GetLength(1) - 1];
@@ -59,6 +60,92 @@ int[,] DeleteRowsAndColumns(int[,] arrayForDelete, int lowerElement)
             }
         }
     }
+    for (int i = 0, tempRow = 0; i < result.GetLength(0); i++, tempRow++)
+    {
+        for (int j = 0, tempColumn = 0; j < result.GetLength(1); j++, tempColumn++)
+        {
+            if (tempRow == indexRow)
+            {
+                tempRow++;
+
+            }
+            if (tempColumn == indexColumn)
+            {
+                tempColumn++;
+
+            }
+            result[i, j] = arrayForDelete[tempRow, tempColumn];
+        }
+    }
+    return result;
+}
+*/
+
+void DeleteDuplicateElements(string text)
+{
+    int index = 0;
+    while (true)
+    {
+        var temp = text[index].ToString();
+        text = text.Replace(temp, "");
+        text = text.Insert(index, temp);
+        index++;
+        if (text.Length - 1 < index)
+        {
+            break;
+        }
+    }
+}
+
+int[,] DeleteRowsAndColumns(int[,] arrayForDelete, int lowerElement)
+{
+    string indexLowerRowList = String.Empty;
+    string indexLowerColumnList = String.Empty;
+    int countLowers = 0;
+    for (int i = 0; i < arrayForDelete.GetLength(0); i++)
+    {
+        for (int j = 0; j < arrayForDelete.GetLength(1); j++)
+        {
+            if (arrayForDelete[i, j] == lowerElement)
+            {
+                //indexLowerRow = i;
+                //indexLowerColumn = j;
+                //if ()
+                indexLowerRowList = $"{i}";
+                indexLowerColumnList = $"{j}";
+
+                //indexRow = i;
+                //indexColumn = j;
+                //break;
+                countLowers++;
+            }
+        }
+    }
+
+    DeleteDuplicateElements(indexLowerRowList);
+    DeleteDuplicateElements(indexLowerColumnList);
+
+    int[] indexLowerRowArray = indexLowerRowList.Select(x => x - '0').ToArray();
+    int[] indexLowerColumnArray = indexLowerColumnList.Select(x => x - '0').ToArray();
+
+    int resultArrayRow = arrayForDelete.GetLength(0);
+    int resultArrayColumn = arrayForDelete.GetLength(1);
+
+    if (resultArrayRow - indexLowerRowArray.Length > 1 && resultArrayColumn - indexLowerColumnArray.Length > 1)
+    {
+        resultArrayRow = arrayForDelete.GetLength(0) - indexLowerRowArray.Length;
+        resultArrayColumn = arrayForDelete.GetLength(1) - indexLowerColumnArray.Length;
+    }
+    else
+    {
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine("Удаление строк невозможно... ничего не останется!");
+        Console.ResetColor();
+        return arrayForDelete;
+    }
+
+    int[,] result = new int[resultArrayRow, resultArrayColumn];
+
     for (int i = 0, tempRow = 0; i < result.GetLength(0); i++, tempRow++)
     {
         for (int j = 0, tempColumn = 0; j < result.GetLength(1); j++, tempColumn++)
@@ -144,3 +231,35 @@ Print2DArrayColor(baseArray, lowerElement);
 Console.WriteLine($"\nНаименьший элемент в массиве = {lowerElement}");
 int[,] resultArray = DeleteRowsAndColumns(baseArray, lowerElement);
 Print2DArray(resultArray);
+
+/*
+//int[] array = new int [4];
+string text = "1234";
+int[] arr = text.Select(x => x - '0').ToArray();
+//for (int i = 0; i < array.Length; i++)
+//{
+//    array[i] = text[i] - 48;
+//}
+string result = string.Join(", ", arr);
+System.Console.WriteLine(result);
+*/
+/*
+void Main()
+{
+    string str = "34,,534aann5345ghkc34535fhfghfgcbvbcvb";
+    Console.WriteLine(str);
+    int i = 0;
+    while (true)
+    {
+        var tmp = str[i].ToString();
+        str = str.Replace(tmp, "");
+        str = str.Insert(i, tmp);
+        i++;
+        if (str.Length - 1 < i)
+            break;
+    }
+    Console.WriteLine(str);
+    Console.WriteLine();
+}
+Main();
+*/
