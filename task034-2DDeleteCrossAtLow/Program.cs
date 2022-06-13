@@ -42,44 +42,6 @@ int FindLowerElement(int[,] arrayForFind)
     return result;
 }
 
-/*
-int[,] DeleteRowsAndColumns(int[,] arrayForDelete, int lowerElement)
-{
-    int[,] result = new int[arrayForDelete.GetLength(0) - 1, arrayForDelete.GetLength(1) - 1];
-    int indexRow = 0;
-    int indexColumn = 0;
-    for (int i = 0; i < arrayForDelete.GetLength(0); i++)
-    {
-        for (int j = 0; j < arrayForDelete.GetLength(1); j++)
-        {
-            if (arrayForDelete[i, j] == lowerElement)
-            {
-                indexRow = i;
-                indexColumn = j;
-                break;
-            }
-        }
-    }
-    for (int i = 0, tempRow = 0; i < result.GetLength(0); i++, tempRow++)
-    {
-        for (int j = 0, tempColumn = 0; j < result.GetLength(1); j++, tempColumn++)
-        {
-            if (tempRow == indexRow)
-            {
-                tempRow++;
-
-            }
-            if (tempColumn == indexColumn)
-            {
-                tempColumn++;
-
-            }
-            result[i, j] = arrayForDelete[tempRow, tempColumn];
-        }
-    }
-    return result;
-}
-*/
 int CountLowerIndex(int[] arrayForCount)
 {
     int result = 0;
