@@ -20,7 +20,7 @@ int[,] GetNewArray(int row, int column)
     {
         for (int j = 0; j < column; j++)
         {
-            result[i, j] = new Random().Next(1, 100);
+            result[i, j] = new Random().Next(1, 10);
         }
     }
     return result;
@@ -80,61 +80,44 @@ int[,] DeleteRowsAndColumns(int[,] arrayForDelete, int lowerElement)
     return result;
 }
 */
-
-void DeleteDuplicateElements(string text)
+int CountLowerIndex(int[] arrayForCount)
 {
-    int index = 0;
-    while (true)
+    int result = 0;
+    for (int i = 0; i < arrayForCount.Length; i++)
     {
-        var temp = text[index].ToString();
-        text = text.Replace(temp, "");
-        text = text.Insert(index, temp);
-        index++;
-        if (text.Length - 1 < index)
+        if (arrayForCount[i] != 0)
         {
-            break;
+            result++;
         }
     }
+    return result;
 }
 
 int[,] DeleteRowsAndColumns(int[,] arrayForDelete, int lowerElement)
 {
-    string indexLowerRowList = String.Empty;
-    string indexLowerColumnList = String.Empty;
-    int countLowers = 0;
+    int[] arrayIndexRow = new int[arrayForDelete.GetLength(0)];
+    int[] arrayIndexColumn = new int[arrayForDelete.GetLength(1)];
     for (int i = 0; i < arrayForDelete.GetLength(0); i++)
     {
         for (int j = 0; j < arrayForDelete.GetLength(1); j++)
         {
             if (arrayForDelete[i, j] == lowerElement)
             {
-                //indexLowerRow = i;
-                //indexLowerColumn = j;
-                //if ()
-                indexLowerRowList = $"{i}";
-                indexLowerColumnList = $"{j}";
-
-                //indexRow = i;
-                //indexColumn = j;
-                //break;
-                countLowers++;
+                arrayIndexRow[i] = i + 1;
+                arrayIndexColumn[j] = j + 1;
             }
         }
     }
-
-    DeleteDuplicateElements(indexLowerRowList);
-    DeleteDuplicateElements(indexLowerColumnList);
-
-    int[] indexLowerRowArray = indexLowerRowList.Select(x => x - '0').ToArray();
-    int[] indexLowerColumnArray = indexLowerColumnList.Select(x => x - '0').ToArray();
+    int countLowerRow = CountLowerIndex(arrayIndexRow);
+    int countLowerColumn = CountLowerIndex(arrayIndexColumn);
 
     int resultArrayRow = arrayForDelete.GetLength(0);
     int resultArrayColumn = arrayForDelete.GetLength(1);
 
-    if (resultArrayRow - indexLowerRowArray.Length > 1 && resultArrayColumn - indexLowerColumnArray.Length > 1)
+    if (resultArrayRow - countLowerRow > 1 && resultArrayColumn - countLowerColumn > 1)
     {
-        resultArrayRow = arrayForDelete.GetLength(0) - indexLowerRowArray.Length;
-        resultArrayColumn = arrayForDelete.GetLength(1) - indexLowerColumnArray.Length;
+        resultArrayRow = arrayForDelete.GetLength(0) - countLowerRow;
+        resultArrayColumn = arrayForDelete.GetLength(1) - countLowerColumn;
     }
     else
     {
@@ -145,20 +128,17 @@ int[,] DeleteRowsAndColumns(int[,] arrayForDelete, int lowerElement)
     }
 
     int[,] result = new int[resultArrayRow, resultArrayColumn];
-
     for (int i = 0, tempRow = 0; i < result.GetLength(0); i++, tempRow++)
     {
         for (int j = 0, tempColumn = 0; j < result.GetLength(1); j++, tempColumn++)
         {
-            if (tempRow == indexRow)
+            while (arrayIndexRow[tempRow] != 0)
             {
                 tempRow++;
-
             }
-            if (tempColumn == indexColumn)
+            while (arrayIndexColumn[tempColumn] != 0)
             {
                 tempColumn++;
-
             }
             result[i, j] = arrayForDelete[tempRow, tempColumn];
         }
@@ -168,17 +148,16 @@ int[,] DeleteRowsAndColumns(int[,] arrayForDelete, int lowerElement)
 
 void Print2DArrayColor(int[,] arrayToPrint, int lowerElement)
 {
-    int indexRow = 0;
-    int indexColumn = 0;
+    int[] arrayIndexRow = new int[arrayToPrint.GetLength(0)];
+    int[] arrayIndexColumn = new int[arrayToPrint.GetLength(1)];
     for (int i = 0; i < arrayToPrint.GetLength(0); i++)
     {
         for (int j = 0; j < arrayToPrint.GetLength(1); j++)
         {
             if (arrayToPrint[i, j] == lowerElement)
             {
-                indexRow = i;
-                indexColumn = j;
-                break;
+                arrayIndexRow[i] = i + 1;
+                arrayIndexColumn[j] = j + 1;
             }
         }
     }
@@ -193,7 +172,7 @@ void Print2DArrayColor(int[,] arrayToPrint, int lowerElement)
         Console.Write($"[{i}]\t");
         for (int j = 0; j < arrayToPrint.GetLength(1); j++)
         {
-            if (indexRow == i || indexColumn == j)
+            if (arrayIndexRow[i] != 0 || arrayIndexColumn[j] != 0)
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
             }
@@ -262,4 +241,25 @@ void Main()
     Console.WriteLine();
 }
 Main();
+*/
+
+//int[] indexLowerRowArray = indexLowerRowList.Select(x => x - '0').ToArray();
+//int[] indexLowerColumnArray = indexLowerColumnList.Select(x => x - '0').ToArray();
+
+/*
+void DeleteDuplicateElements(string text)
+{
+    int index = 0;
+    while (true)
+    {
+        var temp = text[index].ToString();
+        text = text.Replace(temp, "");
+        text = text.Insert(index, temp);
+        index++;
+        if (text.Length - 1 < index)
+        {
+            break;
+        }
+    }
+}
 */
