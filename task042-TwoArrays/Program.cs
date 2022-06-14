@@ -20,44 +20,14 @@ int[] DecimialNumbersArray(int[] arrayInfo, int[] arrayData)
     {
         for (int j = arrayData[i] - 1; j >= 0; j--, index++)        
         {
-            int temp = index * Convert.ToInt32(Math.Pow(2, 3));
-            result[i] = arrayInfo[j] * 
+            result[i] = result[i] + arrayInfo[index] * Convert.ToInt32(Math.Pow(2, j));
         }
     }
-
     return result;
 }
 
 int[] info = { 0, 1, 1, 1, 1, 0, 0, 0, 1 };
 int[] data = { 2, 3, 3, 1 };
-
-
-
-
-
-
-int ToDicimal(int[] array, int number, int count = 0)
-{
-    int[] result = new int[number];
-    for (int i = 0; i < result.Length; i++)
-    {
-        result[i] = array[i];
-    }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int[] result = DecimialNumbersArray(info,data);
+string str = string.Join(", ", result);
+System.Console.WriteLine(str);
