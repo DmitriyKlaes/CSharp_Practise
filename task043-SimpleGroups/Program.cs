@@ -19,35 +19,81 @@
 Группа 6: 32 48
 */
 
-int diapazon = 10;
-int index = 1;
-int group = 0;
-int number = 1;
-int count = 0;
-int temp = 0;
-int[] indexes = new int[diapazon];
-for (int i = 1; i <= diapazon; i++)
-{
-    for (int j = i; j <= diapazon; j++)
-    {
-        temp = j % i;
-        if (temp == 0 && indexes[j-1] == 0)
-        {
-            indexes[j-1] = j;
-        }
-        for (int k = 0; k < length; k++)
-        {
-            
-        }
-        System.Console.WriteLine($"{i} {j} {temp}");
-    }
 
-    count++;
+int[] GetArray(int length)
+{
+    int[] result = new int[length];
+    for (int i = 0; i < result.Length; i++)
+    {
+        result[i] = i + 1;
+    }
+    return result;
 }
 
-System.Console.WriteLine(count);
+void PrintGroup(int[] arrayToPrint)
+{
+    for (int i = 0; i < arrayToPrint.Length; i++)
+    {
+        if (arrayToPrint[i] > 0)
+        {
+            Console.Write(arrayToPrint[i] + " ");
+        }
+    }
+    Console.WriteLine();
+}
 
+int ChangeArrayElseStop(int[] arrayForChange)
+{
+    int result = -1;
+    for (int i = 0; i < arrayForChange.Length; i++)
+    {
+        if (arrayForChange[i] != 0)
+        {
+            arrayForChange[i] = -1;
+        }
+        else if (arrayForChange[i] == 0)
+        {
+            arrayForChange[i] = i + 1;
+            result = i;
+        }
+    }
+    return result;
+}
 
+int GroupsFindAndPrint(int range)
+{
+    int count = 0;
+    int stopSignal = 0;
+    int[] numbers = GetArray(range);
+    for (int i = 0; i < numbers.Length; i++)
+    {
+        for (int j = i; j < numbers.Length; j++)
+        {
+            if (numbers[j] > 0)
+            {
+                int number = numbers[j];
+                for (int k = j + 1; k < numbers.Length; k++)
+                {
+                    if (numbers[k] > 0 && numbers[k] % number == 0)
+                    {
+                        numbers[k] = 0;
+                    }
+                }
+            }
+        }
+        count++;
+        Console.Write($"Группа {count}: ");
+        PrintGroup(numbers);
+        stopSignal = ChangeArrayElseStop(numbers);
+        if (stopSignal < 0)
+        {
+            break;
+        }
+    }
+    return count;
+}
 
-//int test = diapazon % 2;
-//System.Console.WriteLine(test);
+int range = 50;
+Console.WriteLine($"\nЗаданное число: {range}\n");
+int groups = GroupsFindAndPrint(range);
+Console.WriteLine($"\nКоличество групп: {groups}");
