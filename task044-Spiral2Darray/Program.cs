@@ -7,33 +7,58 @@
 10  9  8 7
 */
 
+// Данное решение подходит для любого размера массива... не только 4х4 и не только квадраты.
+
 int[,] SpiralFill2DArray(int row, int column)
 {
     int[,] result = new int[row, column];
     int element = 1;
-    int index = 0;
+    int indexLastRow = 0;
+    int indexLastColumn = 0;
+    int maxElement = result.GetLength(0) * result.GetLength(1) + 1;
     for (int i = 0; i < result.GetLength(0); i++)
     {
-        for (int j = i; j < result.GetLength(1) - i; j++)
+        for (int j = i; j < result.GetLength(1) - i; j++) // заполнение слева направо
         {
+            if (element == maxElement)
+            {
+                break;
+            }
             result[i, j] = element;
             element++;
-            index = j;
+            indexLastColumn = j;
         }
-        for (int k = i + 1; k < result.GetLength(0) - i; k++)
+        for (int k = i + 1; k < result.GetLength(0) - i; k++) // заполнение сверху вниз
         {
-            result[k, index] = element;
+            if (element == maxElement)
+            {
+                break;
+            }
+            result[k, indexLastColumn] = element;
+            element++;
+            indexLastRow = k;
+        }
+        for (int l = indexLastColumn - 1; l >= i; l--) // заполнение справа налево
+        {
+            if (element == maxElement)
+            {
+                break;
+            }
+            result[indexLastRow, l] = element;
             element++;
         }
-        for (int l = result.GetLength(1) - 2 - i; l >= i; l--)
+        for (int m = indexLastRow - 1; m > i; m--) // заполнение снизу вверх
         {
-            result[index, l] = element;
-            element++;
-        }
-        for (int m = index - 1; m > i; m--)
-        {
+            if (element == maxElement)
+            {
+                break;
+            }
             result[m, i] = element;
             element++;
+        }
+        if (element == maxElement)
+        {
+            break;
         }
     }
     return result;
@@ -58,7 +83,7 @@ void Print2DArray(int[,] arrayToPrint)
     }
 }
 
-int arrayRow = 5;
+int arrayRow = 4;
 int arrayColumn = 4;
 int[,] arrayResult = SpiralFill2DArray(arrayRow, arrayColumn);
 Print2DArray(arrayResult);
